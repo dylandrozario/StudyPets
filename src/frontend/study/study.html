@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Session - StudyPets</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../shared/styles.css">
+    
+    <!-- Simple distraction detection using mouse movement and webcam -->
+    
+    <style>
+        /* Study Session Specific Styles */
+        .session-setup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .setup-modal {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            color: #374151;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+        }
+
+        .setup-title {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #1f2937;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .session-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .session-option {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .session-option:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .session-option.selected {
+            background: rgba(59, 130, 246, 0.2);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        .option-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .option-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 0.5rem;
+        }
+
+        .option-desc {
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+
+        .custom-timer {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .custom-timer label {
+            display: block;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 0.5rem;
+        }
+
+        .timer-input {
+            width: 100%;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: #1f2937;
+            font-size: 1rem;
+        }
+
+        .start-session-btn {
+            width: 100%;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .start-session-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+        }
+
+        /* Study Session Interface */
+        .study-session {
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .study-header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .session-info h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 0.5rem;
+        }
+
+        .focus-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .focus-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #10b981;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .session-controls {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .control-btn {
+            padding: 0.75rem 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: #374151;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .pause-btn:hover {
+            background: rgba(245, 158, 11, 0.2);
+            border-color: rgba(245, 158, 11, 0.3);
+        }
+
+        .end-btn:hover {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: rgba(239, 68, 68, 0.3);
+        }
+
+        .study-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .study-left {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .study-right {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .timer-display {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .time {
+            font-size: 4rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 0.5rem;
+            font-family: 'Courier New', monospace;
+        }
+
+        .session-type {
+            color: #6b7280;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .pet-companion {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .pet-avatar {
+            font-size: 6rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .pet-avatar:hover {
+            transform: scale(1.1);
+        }
+
+        .pet-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .pet-stat {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #6b7280;
+            font-weight: 500;
+        }
+
+        .stat-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .stat-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #10b981, #059669);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        .stat-value {
+            font-size: 0.9rem;
+            color: #1f2937;
+            font-weight: 600;
+            text-align: right;
+        }
+
+        .webcam-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            padding: 1rem;
+            position: relative;
+            height: 400px;
+        }
+
+        #webcamVideo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+        .webcam-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .webcam-label {
+            position: absolute;
+            bottom: 1rem;
+            left: 1rem;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        .study-stats {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            padding: 1.5rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat .label {
+            display: block;
+            font-size: 0.9rem;
+            color: #6b7280;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat .value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1f2937;
+        }
+
+        .study-footer {
+            margin-top: 2rem;
+        }
+
+        .session-progress {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            padding: 1rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 12px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .progress-bar::after {
+            content: '';
+            display: block;
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #3b82f6, #1d4ed8);
+            border-radius: 6px;
+            transition: width 0.3s ease;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .study-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .session-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .time {
+                font-size: 3rem;
+            }
+            
+            .pet-avatar {
+                font-size: 4rem;
+            }
+        }
+        
+        /* Computer Vision Overlay Styles */
+        .cv-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 10;
+        }
+        
+        /* Debug Panel Styles */
+        .debug-panel {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 1rem;
+            z-index: 1000;
+            min-width: 200px;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .debug-title {
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .debug-content {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+        
+        .debug-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+        }
+        
+        .debug-row span:first-child {
+            color: #6b7280;
+            font-weight: 500;
+        }
+        
+        .debug-row span:last-child {
+            color: #1f2937;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="page-study">
+    <div class="background">
+        <div class="bg-blob bg-blob-1"></div>
+        <div class="bg-blob bg-blob-2"></div>
+        <div class="bg-blob bg-blob-3"></div>
+        <div class="bg-blob bg-blob-4"></div>
+        <div class="bg-blob bg-blob-5"></div>
+        <div class="bg-blob bg-blob-6"></div>
+        <div class="bg-blob bg-blob-7"></div>
+        <div class="bg-blob bg-blob-8"></div>
+    </div>
+
+    <!-- Session Setup Modal -->
+    <div class="session-setup" id="sessionSetup">
+        <div class="setup-modal glass-card">
+            <button class="modal-close glass-btn" id="closeModal">×</button>
+            <h2 class="setup-title">Start Study Session</h2>
+
+            <div class="session-options">
+                <div class="session-option glass-card selected" data-type="pomodoro">
+                    <div class="option-icon">🍅</div>
+                    <div class="option-title">Pomodoro</div>
+                    <div class="option-desc">25 min focus + 5 min break</div>
+                </div>
+                <div class="session-option glass-card" data-type="custom">
+                    <div class="option-icon">⏰</div>
+                    <div class="option-title">Custom Timer</div>
+                    <div class="option-desc">Set your own duration</div>
+                </div>
+                <div class="session-option glass-card" data-type="focus">
+                    <div class="option-icon">🎯</div>
+                    <div class="option-title">Focus Mode</div>
+                    <div class="option-desc">Study until you stop</div>
+                </div>
+                <div class="session-option glass-card" data-type="goal">
+                    <div class="option-icon">🎯</div>
+                    <div class="option-title">Goal-based</div>
+                    <div class="option-desc">Study until goal achieved</div>
+                </div>
+            </div>
+
+            <div class="custom-timer glass-card" id="customTimer" style="display: none;">
+                <label>Duration (minutes):</label>
+                <input type="number" class="timer-input glass-input" id="customDuration" min="1" max="180" value="25">
+            </div>
+
+            <button class="start-session-btn glass-btn primary" id="startSessionBtn">Start Study Session</button>
+        </div>
+    </div>
+
+    <!-- Study Session Interface -->
+    <div class="study-session" id="studySession" style="display: none;">
+        <div class="study-header glass-card">
+            <div class="session-info">
+                <h2 id="sessionTitle">Study Session</h2>
+                <div class="focus-indicator">
+                    <div class="focus-dot" id="focusDot"></div>
+                    <span id="focusStatus">Starting...</span>
+                </div>
+            </div>
+            <div class="session-controls">
+                <button class="control-btn glass-btn pause-btn" id="pauseBtn">⏸️ Pause</button>
+                <button class="control-btn glass-btn end-btn" id="endBtn">⏹️ End Session</button>
+            </div>
+        </div>
+
+        <div class="study-main">
+            <div class="study-grid">
+                <!-- Left Column: Timer and Pet -->
+                <div class="study-left">
+                    <div class="timer-display glass-card">
+                        <div class="time" id="timerDisplay">25:00</div>
+                        <div class="session-type" id="sessionType">Pomodoro Session</div>
+                    </div>
+
+                    <div class="pet-companion glass-card">
+                        <div class="pet-avatar" id="petAvatar">😺</div>
+                        <div class="pet-stats">
+                            <div class="pet-stat">
+                                <span class="stat-label">Happiness</span>
+                                <div class="stat-bar">
+                                    <div class="stat-fill" id="happinessBar" style="width: 80%"></div>
+                                </div>
+                                <span class="stat-value" id="happinessValue">80%</span>
+                            </div>
+                            <div class="pet-stat">
+                                <span class="stat-label">Energy</span>
+                                <div class="stat-bar">
+                                    <div class="stat-fill" id="energyBar" style="width: 75%"></div>
+                                </div>
+                                <span class="stat-value" id="energyValue">75%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Webcam Feed -->
+                <div class="study-right">
+                    <div class="webcam-container glass-card">
+                        <video id="webcamVideo" autoplay muted playsinline></video>
+                        <div class="webcam-overlay" id="webcamOverlay"></div>
+                        <!-- Computer Vision Overlay for Head Pose Visualization -->
+                        <canvas id="cvOverlay" class="cv-overlay"></canvas>
+                        <div class="webcam-label">Webcam Feed</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="study-stats glass-card">
+                <div class="stat">
+                    <span class="label">Focus</span>
+                    <span class="value" id="focusPercentage">0%</span>
+                </div>
+                <div class="stat">
+                    <span class="label">Earned</span>
+                    <span class="value" id="currencyEarned">💰 0</span>
+                </div>
+                <div class="stat">
+                    <span class="label">Time</span>
+                    <span class="value" id="sessionTime">0:00</span>
+                </div>
+                <div class="stat">
+                    <span class="label">Distractions</span>
+                    <span class="value" id="distractions">0</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="study-footer">
+            <div class="session-progress glass-card">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Distraction Detection Debug Panel -->
+    <div id="headPoseDebug" class="debug-panel" style="display: none;">
+        <div class="debug-title">👀 Distraction Detection</div>
+        <div class="debug-content">
+            <div class="debug-row">
+                <span>Mouse Idle:</span>
+                <span id="pitchValue">0s</span>
+            </div>
+            <div class="debug-row">
+                <span>Keyboard Idle:</span>
+                <span id="yawValue">0s</span>
+            </div>
+            <div class="debug-row">
+                <span>Threshold:</span>
+                <span id="rollValue">3s</span>
+            </div>
+            <div class="debug-row">
+                <span>Focused:</span>
+                <span id="lookingForward">Yes</span>
+            </div>
+            <div class="debug-row">
+                <span>Distractions:</span>
+                <span id="distractionCount">0</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="study.js"></script>
+    <script src="../shared/website-blocker.js"></script>
+</body>
+</html>
+

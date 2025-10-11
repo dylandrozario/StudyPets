@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyPets - Focus Tracking with Virtual Pet</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../shared/styles.css">
+  </head>
+  <body class="page-dashboard">
+    <!-- Background Elements -->
+    <div class="background">
+        <div class="bg-blob bg-blob-1"></div>
+        <div class="bg-blob bg-blob-2"></div>
+        <div class="bg-blob bg-blob-3"></div>
+        <div class="bg-blob bg-blob-4"></div>
+        <div class="bg-blob bg-blob-5"></div>
+        <div class="bg-blob bg-blob-6"></div>
+        <div class="bg-blob bg-blob-7"></div>
+        <div class="bg-blob bg-blob-8"></div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="glass-nav">
+        <div class="nav-container">
+            <div class="nav-left">
+                <button class="menu-toggle" id="menuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <h1 class="logo"><a href="../index.html" style="text-decoration: none; color: inherit;">StudyPets</a></h1>
+            </div>
+            <div class="nav-right">
+                <div class="currency-display">
+                    <div class="currency-icon">💰</div>
+                    <span class="currency-amount" id="navCurrencyAmount">0</span>
+                </div>
+                <div class="focus-indicator">
+                    <div class="focus-dot" id="focusDot"></div>
+                    <span id="focusStatus">Focused</span>
+                </div>
+                <div class="notification-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                    </svg>
+                    <div class="notification-badge"></div>
+                </div>
+                <div class="profile-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <!-- Sidebar -->
+        <aside class="sidebar glass-sidebar" id="sidebar">
+            <div class="sidebar-content">
+                <div class="sidebar-item active">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9,22 9,12 15,12 15,22"></polyline>
+                    </svg>
+                    <span>Dashboard</span>
+                </div>
+                <div class="sidebar-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="22,12 18,12 15,21 9,3 6,12 2,12"></polyline>
+                    </svg>
+                    <span><a href="../analytics/analytics.html">Analytics</a></span>
+                </div>
+                <div class="sidebar-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                    </svg>
+                    <span><a href="../calendar/calendar.html">Calendar</a></span>
+                </div>
+                <div class="sidebar-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                    </svg>
+                    <span><a href="../achievements/achievements.html">Achievements</a></span>
+                </div>
+                <div class="sidebar-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                    </svg>
+                    <span><a href="../study/study.html">Study Session</a></span>
+                </div>
+                <div class="sidebar-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                        <circle cx="12" cy="13" r="4"></circle>
+                    </svg>
+                    <span><a href="../cv-test/cv-test.html">CV Test</a></span>
+                </div>
+                <div class="sidebar-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <path d="M16 10a4 4 0 0 1-8 0"></path>
+                    </svg>
+                    <span><a href="../shop/shop.html">Shop</a></span>
+                </div>
+                <div class="sidebar-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1"></path>
+                    </svg>
+                    <span><a href="../settings/settings.html">Settings</a></span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="content-wrapper">
+                <!-- Welcome Section -->
+                <div class="welcome-section">
+                    <h2 class="welcome-title">Hello!</h2>
+                    <p class="welcome-subtitle">Keep your pet happy by staying focused on your studies</p>
+                    
+                </div>
+
+                <!-- Main Grid -->
+                <div class="main-grid">
+                    <!-- Pet Component -->
+                    <div class="pet-container glass-card">
+                        <div class="pet-header">
+                            <h3>Your Pet</h3>
+                            <div class="pet-level">Level 1</div>
+                        </div>
+                        <div class="pet-display">
+                            <div class="pet-avatar" id="petAvatar">🐱</div>
+                            <div class="pet-stats">
+                                <div class="stat">
+                                    <span class="stat-label">Happiness</span>
+                                    <div class="stat-bar">
+                                        <div class="stat-fill" id="happinessBar" style="width: 0%"></div>
+                                    </div>
+                                    <span class="stat-value" id="happinessValue">0%</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-label">Energy</span>
+                                    <div class="stat-bar">
+                                        <div class="stat-fill" id="energyBar" style="width: 0%"></div>
+                                    </div>
+                                    <span class="stat-value" id="energyValue">0%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Blocking Status -->
+                    <div class="blocking-status glass-card" id="blockingStatus" style="display: none;">
+                        <div class="blocking-header">
+                            <h3>🚫 Website Blocking Active</h3>
+                            <div class="blocking-indicator">
+                                <div class="indicator-dot"></div>
+                                <span>Entertainment sites blocked</span>
+                            </div>
+                        </div>
+                        <div class="blocking-info">
+                            <p>Your pet needs more care before you can access entertainment sites.</p>
+                            <div class="blocking-stats">
+                                <div class="blocking-stat">
+                                    <span class="stat-label">Blocked Attempts:</span>
+                                    <span class="stat-value" id="blockedAttemptsCount">0</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="blocking-actions">
+                            <button class="glass-btn primary" onclick="window.location.href='../study/study.html'">Study to Improve</button>
+                            <button class="glass-btn" onclick="window.location.href='../settings/settings.html'">Manage Settings</button>
+                        </div>
+                    </div>
+
+                    <!-- Dashboard -->
+                    <div class="dashboard glass-card">
+                        <div class="dashboard-header">
+                            <h3>Study Dashboard</h3>
+                            <div class="dashboard-time" id="studyTime">0m 0s</div>
+                        </div>
+                        <div class="dashboard-content">
+                            <div class="metric">
+                                <div class="metric-icon">🎯</div>
+                                <div class="metric-info">
+                                    <div class="metric-value" id="focusPercentage">95%</div>
+                                    <div class="metric-label">Focus Rate</div>
+                                </div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-icon">⏱️</div>
+                                <div class="metric-info">
+                                    <div class="metric-value" id="sessionTime">25m</div>
+                                    <div class="metric-label">Session Time</div>
+                                </div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-icon">🔥</div>
+                                <div class="metric-info">
+                                    <div class="metric-value" id="streak">3</div>
+                                    <div class="metric-label">Day Streak</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="focusChart" width="300" height="150"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="quick-stats glass-card">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-number" id="totalStudyTime">0m 0s</div>
+                            <div class="stat-title">Total Study Time</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="avgFocus">0%</div>
+                            <div class="stat-title">Average Focus</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="petHappiness">85%</div>
+                            <div class="stat-title">Pet Happiness</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="achievements">0</div>
+                            <div class="stat-title">Achievements</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="../shared/website-blocker.js"></script>
+  </body>
+</html>

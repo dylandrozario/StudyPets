@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Blocked - StudyPets</title>
+    <link rel="stylesheet" href="blocked-page.css">
+</head>
+<body>
+    <div class="blocked-container">
+        <div class="blocked-content">
+            <div class="blocked-icon">🚫</div>
+            <h1>Site Blocked</h1>
+            <p class="blocked-domain" id="blockedDomain">Loading...</p>
+            <p class="blocked-message">This entertainment site is blocked because your pet's levels are too low!</p>
+            
+            <div class="pet-status">
+                <div class="pet-avatar" id="petAvatar">😾</div>
+                <div class="pet-levels">
+                    <div class="level-item" id="happinessItem">
+                        <span class="level-label">Happiness:</span>
+                        <span class="level-value" id="happinessValue">--</span>
+                        <span class="level-requirement" id="happinessRequirement">(need --%)</span>
+                    </div>
+                    <div class="level-item" id="energyItem">
+                        <span class="level-label">Energy:</span>
+                        <span class="level-value" id="energyValue">--</span>
+                        <span class="level-requirement" id="energyRequirement">(need --%)</span>
+                    </div>
+                    <div class="level-item" id="focusItem">
+                        <span class="level-label">Focus:</span>
+                        <span class="level-value" id="focusValue">--</span>
+                        <span class="level-requirement" id="focusRequirement">(need --%)</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="actions">
+                <button class="action-btn primary" id="studyBtn">Study to Improve Pet</button>
+                <button class="action-btn" id="dashboardBtn">Go to Dashboard</button>
+            </div>
+            
+            <div class="tips">
+                <h3>💡 How to Improve Your Pet's Levels</h3>
+                <ul>
+                    <li><strong>Happiness:</strong> Stay focused during study sessions</li>
+                    <li><strong>Energy:</strong> Take regular breaks and use items from the shop</li>
+                    <li><strong>Focus:</strong> Avoid distractions and maintain good study habits</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="blocked-page.js"></script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyPets Blocker</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+    <div class="popup-container">
+        <!-- Compact Header -->
+        <div class="header">
+            <div class="logo">🐾</div>
+            <div class="header-info">
+                <h1>StudyPets</h1>
+                <div class="status-indicator" id="statusIndicator">
+                    <div class="status-dot" id="statusDot"></div>
+                    <span id="statusText">Loading...</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Compact Pet Status -->
+        <div class="pet-status-compact" id="petStatus">
+            <div class="pet-avatar" id="petAvatar">😸</div>
+            <div class="pet-levels-compact">
+                <div class="level-row">
+                    <span class="level-label">Happiness:</span>
+                    <span class="level-value" id="happinessLevel">--</span>
+                    <span class="level-status" id="happinessStatus">✓</span>
+                </div>
+                <div class="level-row">
+                    <span class="level-label">Energy:</span>
+                    <span class="level-value" id="energyLevel">--</span>
+                    <span class="level-status" id="energyStatus">✓</span>
+                </div>
+                <div class="level-row">
+                    <span class="level-label">Focus:</span>
+                    <span class="level-value" id="focusLevel">--</span>
+                    <span class="level-status" id="focusStatus">✓</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="quick-stats">
+            <div class="stat-item">
+                <span class="stat-label">Blocked:</span>
+                <span class="stat-value" id="blockedAttempts">0</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Thresholds:</span>
+                <span class="stat-value" id="thresholdsSummary">70/60/80</span>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="actions">
+            <button class="action-btn primary" id="openStudyPets">Study</button>
+            <button class="action-btn" id="manageSettings">Settings</button>
+        </div>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+</html>
