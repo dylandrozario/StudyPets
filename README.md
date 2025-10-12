@@ -2,7 +2,7 @@
 
 A beautiful, interactive web application that helps you stay focused while studying by taking care of a virtual pet. Built with vanilla HTML, CSS, and JavaScript featuring a stunning liquid glass UI design.
 
-## 🚀 Features
+## Features
 
 - **Virtual Pet System**: Take care of your pet by staying focused and maintaining good study habits
 - **Focus Tracking**: Monitor your study sessions and productivity levels
@@ -12,7 +12,7 @@ A beautiful, interactive web application that helps you stay focused while study
 - **Calendar Integration**: Track your study schedule and sessions
 - **Liquid Glass UI**: Beautiful, modern interface with frosted glass effects
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 studypets/
@@ -45,16 +45,16 @@ studypets/
             └── shop.js           # Shop functionality
 ```
 
-## 🎯 Pages Overview
+## Pages Overview
 
-### 🏠 Dashboard (`src/frontend/dashboard/`)
+###  Dashboard (`src/frontend/dashboard/`)
 - Main pet interface with happiness, energy, and focus stats
 - Study session tracking and timers
 - Pet interaction buttons (feed, play, rest)
 - Real-time focus monitoring
 - Currency display and earning system
 
-### 📊 Analytics (`src/frontend/analytics/`)
+### Analytics (`src/frontend/analytics/`)
 - Study time charts and graphs
 - Focus percentage tracking
 - Productivity metrics
