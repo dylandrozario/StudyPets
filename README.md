@@ -1,166 +1,176 @@
-# StudyPets - Focus Tracking with Virtual Pet
+# StudyPets - React Application
 
-A beautiful, interactive web application that helps you stay focused while studying by taking care of a virtual pet. Built with vanilla HTML, CSS, and JavaScript featuring a stunning liquid glass UI design.
+A beautiful liquid glass virtual pet study companion built with React and JavaScript.
 
 ## Features
 
-- **Virtual Pet System**: Take care of your pet by staying focused and maintaining good study habits
-- **Focus Tracking**: Monitor your study sessions and productivity levels
-- **Analytics Dashboard**: Detailed insights into your study patterns and progress
-- **Achievement System**: Unlock rewards and milestones as you build consistent habits
-- **Shop System**: Earn coins by studying and spend them on items to keep your pet happy
-- **Calendar Integration**: Track your study schedule and sessions
-- **Liquid Glass UI**: Beautiful, modern interface with frosted glass effects
+- 🎯 **Focus Tracking** - Real-time focus detection through activity monitoring
+- 📊 **Analytics Dashboard** - Detailed insights into study patterns and productivity metrics
+- 🏆 **Achievement System** - Unlock achievements and milestones as you build study habits
+- 💰 **Reward Economy** - Earn coins by studying and spend them on pet items
+- 📅 **Study Calendar** - Plan and track study sessions with an interactive calendar
+- ⚙️ **Customizable Settings** - Personalize your experience with customizable settings
+- 🚫 **Website Blocking** - Smart blocking of entertainment sites based on pet status
+
+## Technology Stack
+
+- **Frontend**: React 18.2.0 with JavaScript (no TypeScript)
+- **Routing**: React Router DOM 6.8.0
+- **Styling**: CSS with glass morphism design
+- **Build Tool**: Create React App (react-scripts)
+- **Browser Extension**: Chrome Extension Manifest V3
 
 ## Project Structure
 
 ```
-studypets/
-├── index.html                    # Root redirect page
-├── README.md                     # Project documentation
-├── .gitignore                    # Git ignore file
-└── src/
-    ├── package.json              # Project dependencies
-    └── frontend/
-        ├── index.html            # Welcome/landing page
-        ├── shared/
-        │   └── styles.css        # Shared CSS styles
-        ├── dashboard/
-        │   ├── index.html        # Main dashboard page
-        │   └── script.js         # Dashboard functionality
-        ├── analytics/
-        │   ├── analytics.html    # Analytics page
-        │   └── analytics.js      # Analytics functionality
-        ├── calendar/
-        │   ├── calendar.html     # Calendar page
-        │   └── calendar.js       # Calendar functionality
-        ├── achievements/
-        │   ├── achievements.html # Achievements page
-        │   └── achievements.js   # Achievements functionality
-        ├── settings/
-        │   ├── settings.html     # Settings page
-        │   └── settings.js       # Settings functionality
-        └── shop/
-            ├── shop.html         # Shop page
-            └── shop.js           # Shop functionality
+src/
+├── components/           # React components
+│   ├── LandingPage.js   # Landing page component
+│   ├── Dashboard.js     # Main dashboard component
+│   ├── Analytics.js     # Analytics page component
+│   ├── Calendar.js      # Calendar page component
+│   ├── Achievements.js # Achievements page component
+│   ├── StudySession.js  # Study session component
+│   ├── CVTest.js       # Computer vision test component
+│   ├── Shop.js         # Pet shop component
+│   ├── Settings.js     # Settings page component
+│   ├── Dashboard.css   # Dashboard-specific styles
+│   └── shared/         # Shared components and styles
+│       └── PageStyles.css
+├── utils/              # Utility functions
+│   └── studyPetsUtils.js
+├── App.js             # Main App component with routing
+├── App.css            # App-specific styles
+├── index.js           # React entry point
+└── index.css          # Global styles
+
+browser-extension/     # Chrome extension files
+├── manifest.json      # Extension manifest
+├── popup.html         # Extension popup
+├── popup.js          # Extension popup logic
+├── popup.css         # Extension popup styles
+├── background.js     # Extension background script
+├── content.js        # Extension content script
+└── blocked-page.html # Blocked page template
+
+face-direction-detection/ # Preserved original CV functionality
+└── src/              # Original face detection code
 ```
 
-## Pages Overview
+## Getting Started
 
-###  Dashboard (`src/frontend/dashboard/`)
-- Main pet interface with happiness, energy, and focus stats
-- Study session tracking and timers
-- Pet interaction buttons (feed, play, rest)
-- Real-time focus monitoring
-- Currency display and earning system
+### Prerequisites
 
-### Analytics (`src/frontend/analytics/`)
-- Study time charts and graphs
-- Focus percentage tracking
-- Productivity metrics
-- Historical data visualization
-- Performance insights
+- Node.js (version 14 or higher)
+- npm or yarn
 
-### 📅 Calendar (`src/frontend/calendar/`)
-- Study session scheduling
-- Daily/weekly/monthly views
-- Session history tracking
-- Goal setting and planning
+### Installation
 
-### 🏆 Achievements (`src/frontend/achievements/`)
-- Milestone tracking
-- Progress indicators
-- Reward system
-- Achievement categories
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd StudyPets
+```
 
-### 🛍️ Shop (`src/frontend/shop/`)
-- Item categories (Food, Toys, Accessories)
-- Currency-based purchasing
-- Inventory management
-- Item effects on pet stats
+2. Install dependencies:
+```bash
+npm install
+```
 
-### ⚙️ Settings (`src/frontend/settings/`)
-- User preferences
-- Pet customization
-- Notification settings
-- Data management
+3. Start the development server:
+```bash
+npm start
+```
 
-## 🎨 Design Features
+The application will open in your browser at `http://localhost:3000`.
 
-- **Liquid Glass UI**: Frosted glass effects with backdrop blur
-- **Gradient Backgrounds**: Dynamic, colorful blob animations
-- **Responsive Design**: Works on desktop, tablet, and mobile
-- **Smooth Animations**: CSS transitions and hover effects
-- **Modern Typography**: Inter font family for clean readability
+### Building for Production
 
-## 🛠️ Technologies Used
+```bash
+npm run build
+```
 
-- **HTML5**: Semantic markup and structure
-- **CSS3**: Advanced styling with backdrop-filter, gradients, and animations
-- **Vanilla JavaScript**: No frameworks, pure ES6+ JavaScript
-- **LocalStorage**: Persistent data storage for user progress
-- **Canvas API**: Custom chart rendering for analytics
+This creates a `build` folder with the production-ready application.
 
-## 🚀 Getting Started
+## Browser Extension
 
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd studypets
-   ```
+The StudyPets browser extension works alongside the React application to provide website blocking functionality.
 
-2. **Start a local server**
-   ```bash
-   # Using Python
-   python3 -m http.server 8000
-   
-   # Using Node.js
-   npx serve .
-   
-   # Using PHP
-   php -S localhost:8000
-   ```
+### Installation
 
-3. **Open in browser**
-   Navigate to `http://localhost:8000` (will redirect to the frontend)
+1. Open Chrome and go to `chrome://extensions/`
+2. Enable "Developer mode"
+3. Click "Load unpacked" and select the `browser-extension` folder
+4. The extension will now appear in your Chrome toolbar
 
-## 💡 Usage Tips
+### Features
 
-- **Stay Focused**: The pet's happiness depends on your focus levels
-- **Earn Currency**: Study for 30 seconds to earn 5 coins
-- **Use Items**: Purchase and use items from the shop to boost your pet
-- **Track Progress**: Check analytics regularly to monitor your study habits
-- **Set Goals**: Use the calendar to plan and track your study sessions
+- Smart website blocking based on pet status
+- Real-time pet status monitoring
+- Quick access to StudyPets application
+- Blocked attempts tracking
 
-## 🎮 Game Mechanics
+## Key Components
 
-### Pet Stats
-- **Happiness**: Increases with focused study time, decreases when unfocused
-- **Energy**: Natural regeneration, affected by activities and items
-- **Focus**: Real-time tracking of your attention levels
+### Dashboard Component
 
-### Currency System
-- **Earning**: 5 coins every 30 seconds of focused study
-- **Spending**: Purchase items to improve pet stats
-- **Persistence**: Currency is saved across sessions
+The main dashboard provides:
+- Pet status monitoring (happiness, energy)
+- Study session tracking
+- Focus percentage display
+- Interactive pet care buttons
+- Real-time notifications
 
-### Items & Effects
-- **Food**: Restore happiness and energy
-- **Toys**: Provide entertainment and stat boosts
-- **Accessories**: Permanent stat improvements
+### Utility Functions
 
-## 🔧 Customization
+The `studyPetsUtils.js` file contains shared functionality:
+- Local storage management
+- Pet stats calculations
+- Notification system
+- Time formatting
+- Achievement calculations
 
-The application is built with modularity in mind. Each page has its own folder with dedicated HTML, CSS, and JavaScript files. Shared styles are in the `shared/` folder for consistency.
+## Data Storage
 
-## 📱 Browser Support
+The application uses browser localStorage to persist:
+- Pet statistics (happiness, energy, focus)
+- User settings and preferences
+- Study session data
+- Currency and achievements
+- Blocked website attempts
 
-- Chrome 76+
-- Firefox 70+
-- Safari 13+
-- Edge 79+
+## Styling
 
-## 🤝 Contributing
+The application uses a glass morphism design system with:
+- Semi-transparent backgrounds
+- Backdrop blur effects
+- Smooth animations and transitions
+- Responsive design for mobile and desktop
+- Consistent color scheme with green accents
+
+## Development
+
+### Available Scripts
+
+- `npm start` - Start development server
+- `npm run build` - Build for production
+- `npm test` - Run tests
+- `npm run eject` - Eject from Create React App
+- `npm run lint` - Run ESLint
+
+### Code Structure
+
+- Components are functional components using React hooks
+- State management uses React's built-in useState and useEffect
+- Routing handled by React Router DOM
+- Styling uses CSS modules and shared stylesheets
+- Utility functions are modularized for reusability
+
+## Preserved Features
+
+The `face-direction-detection` folder has been preserved as requested and contains the original computer vision functionality for focus detection.
+
+## Contributing
 
 1. Fork the repository
 2. Create a feature branch
@@ -168,16 +178,6 @@ The application is built with modularity in mind. Each page has its own folder w
 4. Test thoroughly
 5. Submit a pull request
 
-## 📄 License
+## License
 
-This project is open source and available under the [MIT License](LICENSE).
-
-## 🙏 Acknowledgments
-
-- Inspired by productivity apps and virtual pet games
-- UI design influenced by iOS 26 liquid glass aesthetic
-- Built with modern web technologies and best practices
-
----
-
-**Happy Studying! 🎓🐾**
+MIT License - see LICENSE file for details.

@@ -1,0 +1,141 @@
+/* ============================================
+   StudyPets - Shared Page Styles
+   ============================================ */
+
+/* ==================== Page Layout ==================== */
+.page-analytics,
+.page-calendar,
+.page-achievements,
+.page-study,
+.page-cv-test,
+.page-shop,
+.page-settings {
+    min-height: 100vh;
+    position: relative;
+}
+
+.main-container {
+    padding-top: 80px;
+}
+
+.page-header {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.page-header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+}
+
+.page-header p {
+    font-size: 1.125rem;
+    color: #6b7280;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* ==================== Grid Layouts ==================== */
+.analytics-grid,
+.achievements-grid,
+.shop-grid,
+.settings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.calendar-container,
+.cv-test-container,
+.study-session-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* ==================== Card Styles ==================== */
+.glass-card h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 1rem;
+}
+
+.glass-card p {
+    color: #6b7280;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+/* ==================== Achievement Styles ==================== */
+.achievement-status {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+    border-radius: 12px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+/* ==================== Shop Styles ==================== */
+.item-price {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #10b981;
+    margin-bottom: 1rem;
+}
+
+.shop-grid .glass-card {
+    text-align: center;
+}
+
+.shop-grid .glass-btn {
+    width: 100%;
+    justify-content: center;
+}
+
+/* ==================== Settings Styles ==================== */
+.settings-grid .glass-card {
+    text-align: center;
+}
+
+.settings-grid .glass-btn {
+    width: 100%;
+    justify-content: center;
+}
+
+/* ==================== Responsive Design ==================== */
+@media (max-width: 768px) {
+    .page-header h1 {
+        font-size: 2rem;
+    }
+    
+    .page-header p {
+        font-size: 1rem;
+    }
+    
+    .analytics-grid,
+    .achievements-grid,
+    .shop-grid,
+    .settings-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .main-container {
+        padding-top: 100px;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-header h1 {
+        font-size: 1.75rem;
+    }
+    
+    .glass-card {
+        padding: 1.5rem;
+    }
+}

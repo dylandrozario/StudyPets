@@ -51,11 +51,11 @@ class StudyPetsPopup {
 
     setupEventListeners() {
         document.getElementById('openStudyPets').addEventListener('click', () => {
-            chrome.tabs.create({ url: 'http://localhost:8000' });
+            chrome.tabs.create({ url: 'http://localhost:3000' });
         });
 
         document.getElementById('manageSettings').addEventListener('click', () => {
-            chrome.tabs.create({ url: 'http://localhost:8000/src/frontend/settings/settings.html' });
+            chrome.tabs.create({ url: 'http://localhost:3000/settings' });
         });
     }
 

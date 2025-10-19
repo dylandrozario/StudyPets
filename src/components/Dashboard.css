@@ -1,0 +1,428 @@
+/* ============================================
+   StudyPets - Dashboard Component Styles
+   ============================================ */
+
+.page-dashboard {
+    min-height: 100vh;
+    position: relative;
+}
+
+/* ==================== Welcome Section ==================== */
+.welcome-section {
+    margin-bottom: 2rem;
+}
+
+.welcome-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+}
+
+.welcome-subtitle {
+    font-size: 1.125rem;
+    color: #6b7280;
+}
+
+/* ==================== Main Grid ==================== */
+.main-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+/* ==================== Pet Container ==================== */
+.pet-container {
+    padding: 2rem;
+}
+
+.pet-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.pet-header h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.pet-level {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.pet-display {
+    text-align: center;
+}
+
+.pet-avatar {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    animation: float-pet 6s ease-in-out infinite;
+}
+
+.pet-avatar:hover {
+    transform: scale(1.1);
+}
+
+@keyframes float-pet {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.pet-stats {
+    margin-bottom: 1.5rem;
+}
+
+.stat {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.stat-label {
+    font-size: 0.875rem;
+    color: #6b7280;
+    min-width: 80px;
+    text-align: left;
+}
+
+.stat-bar {
+    flex: 1;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.stat-fill {
+    height: 100%;
+    background: linear-gradient(135deg, #10b981, #059669);
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+.stat-value {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #1f2937;
+    min-width: 40px;
+    text-align: right;
+}
+
+.pet-buttons {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+.pet-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.75rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
+.pet-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.pet-btn span:first-child {
+    font-size: 1.25rem;
+}
+
+.pet-btn span:last-child {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+/* ==================== Blocking Status ==================== */
+.blocking-status {
+    padding: 2rem;
+}
+
+.blocking-header {
+    margin-bottom: 1rem;
+}
+
+.blocking-header h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #ef4444;
+    margin-bottom: 0.5rem;
+}
+
+.blocking-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.indicator-dot {
+    width: 8px;
+    height: 8px;
+    background: #ef4444;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+.blocking-info {
+    margin-bottom: 1.5rem;
+}
+
+.blocking-info p {
+    color: #6b7280;
+    margin-bottom: 1rem;
+}
+
+.blocking-stats {
+    display: flex;
+    justify-content: space-between;
+}
+
+.blocking-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.blocking-stat .stat-label {
+    font-size: 0.75rem;
+    color: #6b7280;
+}
+
+.blocking-stat .stat-value {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #ef4444;
+}
+
+.blocking-actions {
+    display: flex;
+    gap: 1rem;
+}
+
+.blocking-actions .glass-btn {
+    flex: 1;
+    text-align: center;
+    text-decoration: none;
+}
+
+/* ==================== Dashboard ==================== */
+.dashboard {
+    padding: 2rem;
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.dashboard-header h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.dashboard-time {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #10b981;
+}
+
+.dashboard-content {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.metric {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.metric-icon {
+    font-size: 1.5rem;
+}
+
+.metric-info {
+    flex: 1;
+}
+
+.metric-value {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1f2937;
+    line-height: 1;
+}
+
+.metric-label {
+    font-size: 0.75rem;
+    color: #6b7280;
+    margin-top: 0.25rem;
+}
+
+.chart-container {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ==================== Quick Stats ==================== */
+.quick-stats {
+    padding: 2rem;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+
+.stat-card {
+    text-align: center;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+}
+
+.stat-title {
+    font-size: 0.875rem;
+    color: #6b7280;
+    font-weight: 500;
+}
+
+/* ==================== Pet Animations ==================== */
+.pet-fed {
+    animation: bounce 0.6s ease-in-out;
+}
+
+.pet-play {
+    animation: wiggle 0.8s ease-in-out;
+}
+
+.pet-rest {
+    animation: sleep 1s ease-in-out;
+}
+
+.pet-happy {
+    animation: jump 0.5s ease-in-out;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+
+@keyframes wiggle {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-5deg); }
+    75% { transform: rotate(5deg); }
+}
+
+@keyframes sleep {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(0.9); }
+}
+
+@keyframes jump {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+/* ==================== Responsive Design ==================== */
+@media (max-width: 768px) {
+    .main-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .dashboard-content {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+    
+    .metric {
+        padding: 0.75rem;
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+    
+    .pet-buttons {
+        flex-wrap: wrap;
+    }
+    
+    .pet-btn {
+        flex: 1;
+        min-width: 80px;
+    }
+    
+    .blocking-actions {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .pet-buttons {
+        flex-direction: column;
+    }
+    
+    .pet-btn {
+        flex-direction: row;
+        justify-content: center;
+    }
+}

@@ -1,0 +1,476 @@
+/* ============================================
+   StudyPets - Main App Styles
+   Liquid Glass UI Design System
+   ============================================ */
+
+/* ==================== CSS Reset & Base Styles ==================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 25%, #f0fdf4 50%, #f0f9ff 100%);
+    min-height: 100vh;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.App {
+    min-height: 100vh;
+}
+
+/* ==================== Background Elements ==================== */
+.background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.bg-blob {
+    position: absolute;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(16, 185, 129, 0.1));
+    animation: float 20s infinite ease-in-out;
+    filter: blur(40px);
+}
+
+.bg-blob-1 {
+    width: 300px;
+    height: 300px;
+    top: 10%;
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.bg-blob-2 {
+    width: 200px;
+    height: 200px;
+    top: 20%;
+    right: 20%;
+    animation-delay: 5s;
+}
+
+.bg-blob-3 {
+    width: 250px;
+    height: 250px;
+    bottom: 20%;
+    left: 20%;
+    animation-delay: 10s;
+}
+
+.bg-blob-4 {
+    width: 180px;
+    height: 180px;
+    bottom: 10%;
+    right: 10%;
+    animation-delay: 15s;
+}
+
+.bg-blob-5 {
+    width: 220px;
+    height: 220px;
+    top: 50%;
+    left: 5%;
+    animation-delay: 2s;
+}
+
+.bg-blob-6 {
+    width: 160px;
+    height: 160px;
+    top: 60%;
+    right: 5%;
+    animation-delay: 7s;
+}
+
+.bg-blob-7 {
+    width: 280px;
+    height: 280px;
+    top: 30%;
+    left: 50%;
+    animation-delay: 12s;
+}
+
+.bg-blob-8 {
+    width: 190px;
+    height: 190px;
+    bottom: 30%;
+    right: 30%;
+    animation-delay: 17s;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    33% {
+        transform: translateY(-30px) rotate(120deg);
+    }
+    66% {
+        transform: translateY(30px) rotate(240deg);
+    }
+}
+
+/* ==================== Glass Card System ==================== */
+.glass-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 
+        0 16px 48px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+/* ==================== Glass Navigation ==================== */
+.glass-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 1rem 2rem;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1f2937;
+    text-decoration: none;
+}
+
+.logo:hover {
+    color: #10b981;
+}
+
+/* ==================== Glass Sidebar ==================== */
+.glass-sidebar {
+    position: fixed;
+    left: 0;
+    top: 80px;
+    width: 280px;
+    height: calc(100vh - 80px);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+    z-index: 999;
+}
+
+.glass-sidebar.collapsed {
+    transform: translateX(-100%);
+}
+
+.sidebar-content {
+    padding: 2rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.sidebar-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 2rem;
+    color: #6b7280;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.sidebar-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #1f2937;
+}
+
+.sidebar-item.active {
+    background: rgba(16, 185, 129, 0.2);
+    color: #10b981;
+    border-right: 3px solid #10b981;
+}
+
+.sidebar-item a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* ==================== Main Content ==================== */
+.main-content {
+    margin-left: 280px;
+    padding: 2rem;
+    min-height: calc(100vh - 80px);
+    transition: margin-left 0.3s ease;
+}
+
+.main-content.full-width {
+    margin-left: 0;
+}
+
+.content-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* ==================== Glass Buttons ==================== */
+.glass-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.glass-btn.primary {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    box-shadow: 
+        0 4px 16px rgba(16, 185, 129, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.glass-btn.primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+        0 8px 24px rgba(16, 185, 129, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.glass-btn.secondary {
+    background: rgba(255, 255, 255, 0.15);
+    color: #1f2937;
+    box-shadow: 
+        0 4px 16px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.glass-btn.secondary:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+        0 8px 24px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+/* ==================== Menu Toggle ==================== */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+.menu-toggle span {
+    width: 24px;
+    height: 3px;
+    background: #1f2937;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+.menu-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px);
+}
+
+.menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* ==================== Currency Display ==================== */
+.currency-display {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.currency-icon {
+    font-size: 1.25rem;
+}
+
+.currency-amount {
+    font-weight: 600;
+    color: #1f2937;
+}
+
+/* ==================== Focus Indicator ==================== */
+.focus-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.focus-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #10b981;
+    animation: pulse 2s infinite;
+}
+
+.focus-dot.distracted {
+    background: #ef4444;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* ==================== Notification Icon ==================== */
+.notification-icon {
+    position: relative;
+    padding: 0.5rem;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.notification-icon:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.notification-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 8px;
+    height: 8px;
+    background: #ef4444;
+    border-radius: 50%;
+    border: 2px solid white;
+}
+
+/* ==================== Profile Icon ==================== */
+.profile-icon {
+    padding: 0.5rem;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.profile-icon:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* ==================== Responsive Design ==================== */
+@media (max-width: 768px) {
+    .glass-sidebar {
+        transform: translateX(-100%);
+    }
+    
+    .glass-sidebar.open {
+        transform: translateX(0);
+    }
+    
+    .main-content {
+        margin-left: 0;
+    }
+    
+    .menu-toggle {
+        display: flex;
+    }
+    
+    .nav-right {
+        gap: 1rem;
+    }
+    
+    .currency-display,
+    .focus-indicator {
+        padding: 0.25rem 0.5rem;
+    }
+    
+    .currency-amount,
+    .focus-indicator span {
+        font-size: 0.875rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .glass-nav {
+        padding: 1rem;
+    }
+    
+    .nav-right {
+        gap: 0.5rem;
+    }
+    
+    .currency-display,
+    .focus-indicator {
+        display: none;
+    }
+}
