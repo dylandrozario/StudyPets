@@ -1,5 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+import { Line } from 'react-chartjs-2';
 import './Dashboard.css';
 import { 
   formatTime, 
@@ -11,6 +22,17 @@ import {
   checkBlockingStatus
 } from '../utils/studyPetsUtils';
 
+// Register Chart.js components
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
+
 const Dashboard = () => {
   const [isFocused] = useState(true);
   const [studyTime] = useState(0);
@@ -20,27 +42,103 @@ const Dashboard = () => {
   const [sessionTime] = useState(0);
   const [streak] = useState(3);
   const [totalStudyTime, setTotalStudyTime] = useState(0);
-  const [achievements] = useState(0);
   const [currency, setCurrency] = useState(0);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [blockingStatus, setBlockingStatus] = useState(false);
   const [blockedAttempts, setBlockedAttempts] = useState(0);
 
-  const canvasRef = useRef(null);
+  // Generate mock study data for the chart
+  const generateStudyData = () => {
+    const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+    const studyTime = days.map(() => Math.floor(Math.random() * 300) + 60); // 60-360 minutes
+    const focusTime = studyTime.map(time => Math.floor(time * (0.7 + Math.random() * 0.2))); // 70-90% of study time
+    
+    return { days, studyTime, focusTime };
+  };
+
+  const studyData = generateStudyData();
+
+  // Chart data configuration
+  const chartData = {
+    labels: studyData.days,
+    datasets: [
+      {
+        label: 'Study Time (minutes)',
+        data: studyData.studyTime,
+        borderColor: 'rgb(59, 130, 246)',
+        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+        borderWidth: 3,
+        fill: true,
+        tension: 0.4,
+      },
+      {
+        label: 'Focus Time (minutes)',
+        data: studyData.focusTime,
+        borderColor: 'rgb(16, 185, 129)',
+        backgroundColor: 'rgba(16, 185, 129, 0.1)',
+        borderWidth: 3,
+        fill: true,
+        tension: 0.4,
+      }
+    ],
+  };
+
+  const chartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'top',
+        labels: {
+          color: '#374151',
+          font: {
+            size: 11,
+            weight: '500'
+          }
+        }
+      },
+      tooltip: {
+        backgroundColor: 'rgba(255, 255, 255, 0.95)',
+        titleColor: '#1f2937',
+        bodyColor: '#374151',
+        borderColor: 'rgba(255, 255, 255, 0.2)',
+        borderWidth: 1,
+        cornerRadius: 8,
+        displayColors: true,
+      }
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
+        grid: {
+          color: 'rgba(255, 255, 255, 0.1)',
+        },
+        ticks: {
+          color: '#6b7280',
+          font: {
+            size: 10
+          }
+        }
+      },
+      x: {
+        grid: {
+          color: 'rgba(255, 255, 255, 0.1)',
+        },
+        ticks: {
+          color: '#6b7280',
+          font: {
+            size: 10
+          }
+        }
+      }
+    }
+  };
 
   useEffect(() => {
     loadPetStatsData();
     loadCurrencyData();
     loadAggregatedTotals();
     updateBlockingStatus();
-    
-    // Initialize chart directly in useEffect
-    const canvas = canvasRef.current;
-    if (canvas) {
-      const ctx = canvas.getContext('2d');
-      const data = [85, 90, 88, 92, 95, 93, 97, 95, 98, 96];
-      drawChart(ctx, canvas, data);
-    }
   }, []);
 
   useEffect(() => {
@@ -111,90 +209,6 @@ const Dashboard = () => {
     }
   };
 
-  const drawChart = (ctx, canvas, data) => {
-    const width = canvas.width;
-    const height = canvas.height;
-    
-    ctx.clearRect(0, 0, width, height);
-    
-    drawGrid(ctx, width, height);
-    drawLine(ctx, width, height, data);
-    drawPoints(ctx, width, height, data);
-  };
-
-  const drawGrid = (ctx, width, height) => {
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
-    ctx.lineWidth = 1;
-    
-    for (let i = 0; i <= 10; i++) {
-      const y = (height / 10) * i;
-      ctx.beginPath();
-      ctx.moveTo(0, y);
-      ctx.lineTo(width, y);
-      ctx.stroke();
-    }
-  };
-
-  const drawLine = (ctx, width, height, data) => {
-    const gradient = ctx.createLinearGradient(0, 0, 0, height);
-    gradient.addColorStop(0, '#3b82f6');
-    gradient.addColorStop(1, '#1d4ed8');
-    
-    ctx.strokeStyle = gradient;
-    ctx.lineWidth = 4;
-    ctx.lineCap = 'round';
-    ctx.lineJoin = 'round';
-    ctx.shadowColor = 'rgba(59, 130, 246, 0.4)';
-    ctx.shadowBlur = 12;
-    ctx.shadowOffsetY = 3;
-    ctx.beginPath();
-    
-    data.forEach((value, index) => {
-      const x = (width / (data.length - 1)) * index;
-      const y = height - (value / 100) * height;
-      
-      if (index === 0) {
-        ctx.moveTo(x, y);
-      } else {
-        ctx.lineTo(x, y);
-      }
-    });
-    
-    ctx.stroke();
-    ctx.shadowColor = 'transparent';
-  };
-
-  const drawPoints = (ctx, width, height, data) => {
-    data.forEach((value, index) => {
-      const x = (width / (data.length - 1)) * index;
-      const y = height - (value / 100) * height;
-      
-      drawPoint(ctx, x, y);
-    });
-  };
-
-  const drawPoint = (ctx, x, y) => {
-    const pointGradient = ctx.createRadialGradient(x, y, 0, x, y, 6);
-    pointGradient.addColorStop(0, '#ffffff');
-    pointGradient.addColorStop(0.6, '#3b82f6');
-    pointGradient.addColorStop(1, '#1d4ed8');
-    
-    ctx.fillStyle = pointGradient;
-    ctx.shadowColor = 'rgba(59, 130, 246, 0.5)';
-    ctx.shadowBlur = 8;
-    ctx.shadowOffsetY = 2;
-    
-    ctx.beginPath();
-    ctx.arc(x, y, 6, 0, 2 * Math.PI);
-    ctx.fill();
-    
-    // Add inner highlight
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
-    ctx.shadowColor = 'transparent';
-    ctx.beginPath();
-    ctx.arc(x - 1, y - 1, 2, 0, 2 * Math.PI);
-    ctx.fill();
-  };
 
   const updateBlockingStatus = () => {
     const settings = loadSettings();
@@ -281,25 +295,6 @@ const Dashboard = () => {
                   <polyline points="22,12 18,12 15,21 9,3 6,12 2,12"></polyline>
                 </svg>
                 <span>Analytics</span>
-              </Link>
-            </div>
-            <div className="sidebar-item">
-              <Link to="/calendar">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                  <line x1="16" y1="2" x2="16" y2="6"></line>
-                  <line x1="8" y1="2" x2="8" y2="6"></line>
-                  <line x1="3" y1="10" x2="21" y2="10"></line>
-                </svg>
-                <span>Calendar</span>
-              </Link>
-            </div>
-            <div className="sidebar-item">
-              <Link to="/achievements">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-                </svg>
-                <span>Achievements</span>
               </Link>
             </div>
             <div className="sidebar-item">
@@ -440,7 +435,9 @@ const Dashboard = () => {
                   </div>
                 </div>
                 <div className="chart-container">
-                  <canvas ref={canvasRef} width="300" height="150"></canvas>
+                  <div className="chart-wrapper">
+                    <Line data={chartData} options={chartOptions} />
+                  </div>
                 </div>
               </div>
             </div>
@@ -459,10 +456,6 @@ const Dashboard = () => {
                 <div className="stat-card">
                   <div className="stat-number">{Math.round(happiness)}%</div>
                   <div className="stat-title">Pet Happiness</div>
-                </div>
-                <div className="stat-card">
-                  <div className="stat-number">{achievements}</div>
-                  <div className="stat-title">Achievements</div>
                 </div>
               </div>
             </div>
