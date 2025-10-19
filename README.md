@@ -4,13 +4,13 @@ A beautiful liquid glass virtual pet study companion built with React and JavaSc
 
 ## Features
 
-- 🎯 **Focus Tracking** - Real-time focus detection through activity monitoring
-- 📊 **Analytics Dashboard** - Detailed insights into study patterns and productivity metrics
-- 🏆 **Achievement System** - Unlock achievements and milestones as you build study habits
-- 💰 **Reward Economy** - Earn coins by studying and spend them on pet items
-- 📅 **Study Calendar** - Plan and track study sessions with an interactive calendar
-- ⚙️ **Customizable Settings** - Personalize your experience with customizable settings
-- 🚫 **Website Blocking** - Smart blocking of entertainment sites based on pet status
+- **Focus Tracking** - Real-time focus detection through activity monitoring
+- **Analytics Dashboard** - Detailed insights into study patterns and productivity metrics
+- **Achievement System** - Unlock achievements and milestones as you build study habits
+- **Reward Economy** - Earn coins by studying and spend them on pet items
+- **Study Calendar** - Plan and track study sessions with an interactive calendar
+- **Customizable Settings** - Personalize your experience with customizable settings
+- **Website Blocking** - Smart blocking of entertainment sites based on pet status
 
 ## Technology Stack
 
