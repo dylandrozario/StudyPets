@@ -19,7 +19,9 @@ const StudySession = () => {
     turn: 0,
     zDistance: 0,
     xDistance: 0,
-    isFocused: true
+    isFocused: true,
+    baselineTurn: 110, // Initialize baseline turn angle to 110
+    deviation: 0 // Deviation from baseline
   });
 
   const inputResolution = {
@@ -40,10 +42,18 @@ const StudySession = () => {
     
     await runDetector(video, canvasRef.current, (data) => {
       if (data) {
-        const isFocused = Math.abs(data.yaw) < 15 && Math.abs(data.turn) < 15;
+        // Use only turn angle for distraction detection
+        const baselineTurn = 110; // Baseline turn angle
+        const currentTurn = data.turn;
+        
+        // Flag distraction if turn angle is above 160 or below 50
+        const isFocused = currentTurn >= 50 && currentTurn <= 160;
+        
         setFocusData({
           ...data,
-          isFocused
+          isFocused,
+          baselineTurn,
+          deviation: Math.abs(currentTurn - baselineTurn)
         });
       }
     });
@@ -83,7 +93,7 @@ const StudySession = () => {
           <div className="content-wrapper">
             <div className="page-header">
               <h1>Study Session</h1>
-              <p>Face direction detection for focus tracking</p>
+              <p>Turn angle detection - monitors range from 50° to 160° (baseline: 110°)</p>
             </div>
 
             <div className="study-session-layout">
@@ -95,12 +105,20 @@ const StudySession = () => {
                 </div>
                 <div className="focus-details">
                   <div className="detail-item">
-                    <span className="label">Yaw:</span>
-                    <span className="value">{Math.round(focusData.yaw)}°</span>
+                    <span className="label">Current Turn:</span>
+                    <span className="value">{Math.round(focusData.turn)}°</span>
                   </div>
                   <div className="detail-item">
-                    <span className="label">Turn:</span>
-                    <span className="value">{Math.round(focusData.turn)}°</span>
+                    <span className="label">Baseline Turn:</span>
+                    <span className="value">{focusData.baselineTurn}°</span>
+                  </div>
+                  <div className={`detail-item ${focusData.deviation > 30 ? 'deviation-danger' : focusData.deviation > 20 ? 'deviation-warning' : ''}`}>
+                    <span className="label">Deviation:</span>
+                    <span className="value">{Math.round(focusData.deviation)}°</span>
+                  </div>
+                  <div className="detail-item threshold-info">
+                    <span className="label">Range:</span>
+                    <span className="value">50° - 160°</span>
                   </div>
                 </div>
               </div>

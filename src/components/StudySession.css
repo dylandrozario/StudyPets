@@ -138,6 +138,33 @@
   font-size: 1.125rem;
 }
 
+.detail-item.threshold-info {
+  background: rgba(59, 130, 246, 0.1);
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.detail-item.threshold-info .label {
+  color: #3b82f6;
+  font-weight: 600;
+}
+
+.detail-item.threshold-info .value {
+  color: #3b82f6;
+  font-weight: 700;
+}
+
+.detail-item.deviation-warning .value {
+  color: #f59e0b;
+  font-weight: 700;
+}
+
+.detail-item.deviation-danger .value {
+  color: #ef4444;
+  font-weight: 700;
+}
+
 .camera-section {
   padding: 1.5rem;
   display: flex;
