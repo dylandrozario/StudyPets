@@ -1,6 +1,6 @@
 # StudyPets - React Application
 
-A beautiful liquid glass virtual pet study companion built with React and JavaScript.
+Tamagotchi Inspired Study Companion and Tool.
 
 ## Features
 
